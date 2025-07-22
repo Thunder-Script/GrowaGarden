@@ -1,0 +1,112 @@
+-- Roblox-style GUI Message for Script Compatibility
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ExecutorWarningGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Background Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.6, 0, 0.4, 0)
+frame.Position = UDim2.new(0.2, 0, 0.3, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0.1
+frame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = frame
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Text = "⚠️ Script isn't working on Delta!"
+title.Font = Enum.Font.FredokaOne
+title.TextSize = 24
+title.TextColor3 = Color3.fromRGB(255, 75, 75)
+title.BackgroundTransparency = 1
+title.Size = UDim2.new(1, 0, 0.3, 0)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Parent = frame
+
+-- Subtext
+local subtext = Instance.new("TextLabel")
+subtext.Text = "Please use one of the working executors below:"
+subtext.Font = Enum.Font.Gotham
+subtext.TextSize = 18
+subtext.TextColor3 = Color3.fromRGB(255, 255, 255)
+subtext.BackgroundTransparency = 1
+subtext.Size = UDim2.new(1, -20, 0.2, 0)
+subtext.Position = UDim2.new(0, 10, 0.3, 0)
+subtext.TextWrapped = true
+subtext.Parent = frame
+
+-- Popup Message
+local popup = Instance.new("TextLabel")
+popup.Text = "✅ Link copied! Go to browser and paste to download."
+popup.Font = Enum.Font.GothamBold
+popup.TextSize = 16
+popup.TextColor3 = Color3.fromRGB(255, 255, 255)
+popup.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+popup.Size = UDim2.new(0.9, 0, 0.08, 0)
+popup.Position = UDim2.new(0.05, 0, 0.92, 0)
+popup.Visible = false
+popup.ZIndex = 2
+popup.Parent = frame
+
+local popupCorner = Instance.new("UICorner")
+popupCorner.CornerRadius = UDim.new(0, 6)
+popupCorner.Parent = popup
+
+-- Function to show popup
+local function showPopup()
+	popup.Visible = true
+	task.delay(2.5, function()
+		popup.Visible = false
+	end)
+end
+
+-- Krnl Button
+local krnlBtn = Instance.new("TextButton")
+krnlBtn.Text = "🔗 Krnl Executor"
+krnlBtn.Font = Enum.Font.GothamBold
+krnlBtn.TextSize = 18
+krnlBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+krnlBtn.BackgroundColor3 = Color3.fromRGB(50, 100, 255)
+krnlBtn.Size = UDim2.new(0.8, 0, 0.15, 0)
+krnlBtn.Position = UDim2.new(0.1, 0, 0.5, 0)
+krnlBtn.Parent = frame
+
+local krnlCorner = Instance.new("UICorner")
+krnlCorner.CornerRadius = UDim.new(0, 8)
+krnlCorner.Parent = krnlBtn
+
+krnlBtn.MouseButton1Click:Connect(function()
+	setclipboard("https://wearedevs.net/d/Krnl")
+	showPopup()
+end)
+
+-- Arceus Button
+local arceusBtn = Instance.new("TextButton")
+arceusBtn.Text = "🔗 Arceus X Executor"
+arceusBtn.Font = Enum.Font.GothamBold
+arceusBtn.TextSize = 18
+arceusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+arceusBtn.BackgroundColor3 = Color3.fromRGB(255, 90, 90)
+arceusBtn.Size = UDim2.new(0.8, 0, 0.15, 0)
+arceusBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
+arceusBtn.Parent = frame
+
+local arceusCorner = Instance.new("UICorner")
+arceusCorner.CornerRadius = UDim.new(0, 8)
+arceusCorner.Parent = arceusBtn
+
+arceusBtn.MouseButton1Click:Connect(function()
+	setclipboard("https://arceusx.com/")
+	showPopup()
+end)
