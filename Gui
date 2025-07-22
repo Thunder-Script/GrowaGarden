@@ -12,8 +12,8 @@ screenGui.Parent = playerGui
 
 -- Background Frame
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0.6, 0, 0.4, 0)
-frame.Position = UDim2.new(0.2, 0, 0.3, 0)
+frame.Size = UDim2.new(0.5, 0, 0.35, 0)
+frame.Position = UDim2.new(0.25, 0, 0.325, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
 frame.BackgroundTransparency = 0.1
@@ -36,7 +36,7 @@ title.Parent = frame
 
 -- Subtext
 local subtext = Instance.new("TextLabel")
-subtext.Text = "Please use one of the working executors below:"
+subtext.Text = "Please use the working executor below:"
 subtext.Font = Enum.Font.Gotham
 subtext.TextSize = 18
 subtext.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -54,7 +54,7 @@ popup.TextSize = 16
 popup.TextColor3 = Color3.fromRGB(255, 255, 255)
 popup.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
 popup.Size = UDim2.new(0.9, 0, 0.08, 0)
-popup.Position = UDim2.new(0.05, 0, 0.92, 0)
+popup.Position = UDim2.new(0.05, 0, 0.8, 0)
 popup.Visible = false
 popup.ZIndex = 2
 popup.Parent = frame
@@ -79,7 +79,7 @@ krnlBtn.TextSize = 18
 krnlBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 krnlBtn.BackgroundColor3 = Color3.fromRGB(50, 100, 255)
 krnlBtn.Size = UDim2.new(0.8, 0, 0.15, 0)
-krnlBtn.Position = UDim2.new(0.1, 0, 0.5, 0)
+krnlBtn.Position = UDim2.new(0.1, 0, 0.55, 0)
 krnlBtn.Parent = frame
 
 local krnlCorner = Instance.new("UICorner")
@@ -88,25 +88,5 @@ krnlCorner.Parent = krnlBtn
 
 krnlBtn.MouseButton1Click:Connect(function()
 	setclipboard("https://wearedevs.net/d/Krnl")
-	showPopup()
-end)
-
--- Arceus Button
-local arceusBtn = Instance.new("TextButton")
-arceusBtn.Text = "🔗 Arceus X Executor"
-arceusBtn.Font = Enum.Font.GothamBold
-arceusBtn.TextSize = 18
-arceusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-arceusBtn.BackgroundColor3 = Color3.fromRGB(255, 90, 90)
-arceusBtn.Size = UDim2.new(0.8, 0, 0.15, 0)
-arceusBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
-arceusBtn.Parent = frame
-
-local arceusCorner = Instance.new("UICorner")
-arceusCorner.CornerRadius = UDim.new(0, 8)
-arceusCorner.Parent = arceusBtn
-
-arceusBtn.MouseButton1Click:Connect(function()
-	setclipboard("https://arceusx.com/")
 	showPopup()
 end)
