@@ -1,50 +1,106 @@
--- Freeze Trade UI for Grow a Garden
+-- Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
-local tradeFrozen = false
-local targetName = "Unknown"
-local targetAvatar = nil
-local uiVisible = true
+-- GUI Creation
+local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+screenGui.Name = "GardenGui"
 
--- Function to show trade UI
-function ShowTradeUI(target)
-    targetName = target.Name
-    targetAvatar = target.Avatar -- Replace with actual avatar property
-    uiVisible = true
-    DrawTradeUI()
-end
+local mainFrame = Instance.new("Frame", screenGui)
+mainFrame.Size = UDim2.new(0, 300, 0, 200)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+mainFrame.BackgroundColor3 = Color3.fromRGB(104, 160, 99) -- garden green
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
 
--- Function to draw the trade UI
-function DrawTradeUI()
-    if not uiVisible then return end
-    print("Trade with: " .. targetName)
-    print("Avatar: " .. tostring(targetAvatar))
-    if tradeFrozen then
-        print("Trading is frozen for this target!")
-    else
-        print("[Trade Button]") -- Replace with actual UI button code
+-- Minimize Button
+local minimizeButton = Instance.new("TextButton", mainFrame)
+minimizeButton.Size = UDim2.new(0, 30, 0, 30)
+minimizeButton.Position = UDim2.new(1, -35, 0, 5)
+minimizeButton.Text = "-"
+minimizeButton.BackgroundColor3 = Color3.fromRGB(139, 69, 19) -- brown
+minimizeButton.TextColor3 = Color3.new(1, 1, 1)
+
+-- Garden Label
+local title = Instance.new("TextLabel", mainFrame)
+title.Text = "🌱 Grow a Garden"
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+
+-- Username Input
+local usernameBox = Instance.new("TextBox", mainFrame)
+usernameBox.PlaceholderText = "Enter username..."
+usernameBox.Size = UDim2.new(0.9, 0, 0, 30)
+usernameBox.Position = UDim2.new(0.05, 0, 0.3, 0)
+usernameBox.BackgroundColor3 = Color3.fromRGB(200, 255, 200)
+usernameBox.TextColor3 = Color3.new(0, 0, 0)
+usernameBox.Font = Enum.Font.Gotham
+usernameBox.TextSize = 14
+
+-- Trade Button
+local tradeButton = Instance.new("TextButton", mainFrame)
+tradeButton.Text = "Trade with Avatar"
+tradeButton.Size = UDim2.new(0.9, 0, 0, 30)
+tradeButton.Position = UDim2.new(0.05, 0, 0.55, 0)
+tradeButton.BackgroundColor3 = Color3.fromRGB(160, 82, 45)
+tradeButton.TextColor3 = Color3.new(1, 1, 1)
+tradeButton.Font = Enum.Font.GothamBold
+tradeButton.TextSize = 16
+
+-- Simulate garden action
+local gardenButton = Instance.new("TextButton", mainFrame)
+gardenButton.Text = "Grow Plant 🌼"
+gardenButton.Size = UDim2.new(0.9, 0, 0, 30)
+gardenButton.Position = UDim2.new(0.05, 0, 0.75, 0)
+gardenButton.BackgroundColor3 = Color3.fromRGB(34, 139, 34)
+gardenButton.TextColor3 = Color3.new(1, 1, 1)
+gardenButton.Font = Enum.Font.Gotham
+gardenButton.TextSize = 16
+
+-- Toggle Visibility
+local minimized = false
+minimizeButton.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    for _, child in ipairs(mainFrame:GetChildren()) do
+        if child:IsA("GuiObject") and child ~= minimizeButton then
+            child.Visible = not minimized
+        end
     end
-    print("[Minimize Button]") -- Replace with actual UI button code
-end
+    minimizeButton.Text = minimized and "+" or "-"
+end)
 
--- Function to freeze trade
-function FreezeTrade(target)
-    tradeFrozen = true
-    ShowTradeUI(target)
-end
+-- Trade simulation
+tradeButton.MouseButton1Click:Connect(function()
+    local username = usernameBox.Text
+    local targetPlayer = Players:FindFirstChild(username)
 
--- Function to unfreeze trade
-function UnfreezeTrade()
-    tradeFrozen = false
-end
+    if targetPlayer then
+        -- Simulate trade
+        game.StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = "🎁 Trade request sent to " .. username;
+            Color = Color3.fromRGB(255, 255, 0);
+            Font = Enum.Font.SourceSansBold;
+            TextSize = 18;
+        })
+    else
+        game.StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = "❌ Player not found!";
+            Color = Color3.fromRGB(255, 50, 50);
+            Font = Enum.Font.SourceSansBold;
+            TextSize = 18;
+        })
+    end
+end)
 
--- Function to minimize UI
-function MinimizeUI()
-    uiVisible = false
-    print("Trade UI minimized.")
-end
-
--- Example usage:
-local target = { Name = "GardenMaster", Avatar = "gardenmaster.png" }
-ShowTradeUI(target)
-FreezeTrade(target)
-MinimizeUI()
+-- Garden Simulation
+gardenButton.MouseButton1Click:Connect(function()
+    gardenButton.Text = "🌿 Growing..."
+    wait(1.5)
+    gardenButton.Text = "✅ Plant Grown!"
+    wait(1)
+    gardenButton.Text = "Grow Plant 🌼"
+end)
