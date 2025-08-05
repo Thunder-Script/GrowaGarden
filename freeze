@@ -1,0 +1,50 @@
+-- Freeze Trade UI for Grow a Garden
+
+local tradeFrozen = false
+local targetName = "Unknown"
+local targetAvatar = nil
+local uiVisible = true
+
+-- Function to show trade UI
+function ShowTradeUI(target)
+    targetName = target.Name
+    targetAvatar = target.Avatar -- Replace with actual avatar property
+    uiVisible = true
+    DrawTradeUI()
+end
+
+-- Function to draw the trade UI
+function DrawTradeUI()
+    if not uiVisible then return end
+    print("Trade with: " .. targetName)
+    print("Avatar: " .. tostring(targetAvatar))
+    if tradeFrozen then
+        print("Trading is frozen for this target!")
+    else
+        print("[Trade Button]") -- Replace with actual UI button code
+    end
+    print("[Minimize Button]") -- Replace with actual UI button code
+end
+
+-- Function to freeze trade
+function FreezeTrade(target)
+    tradeFrozen = true
+    ShowTradeUI(target)
+end
+
+-- Function to unfreeze trade
+function UnfreezeTrade()
+    tradeFrozen = false
+end
+
+-- Function to minimize UI
+function MinimizeUI()
+    uiVisible = false
+    print("Trade UI minimized.")
+end
+
+-- Example usage:
+local target = { Name = "GardenMaster", Avatar = "gardenmaster.png" }
+ShowTradeUI(target)
+FreezeTrade(target)
+MinimizeUI()
